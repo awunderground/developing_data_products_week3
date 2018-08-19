@@ -1,0 +1,39 @@
+---
+title: "Week 3 Assignment"
+author: "Aaron Williams"
+date: "8/19/2018"
+output: 
+  ioslides_presentation:
+    css: www/styles.css
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+## Population density and college degrees
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(urbnthemes)
+
+set_urbn_defaults(style = "print")
+
+gg <- midwest %>%
+  mutate(county_label = str_c(county, ", ", state)) %>%
+  ggplot(aes(x = log(popdensity), y = percollege, text = county_label)) +
+  geom_point(alpha = 0.4) +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2)), limits = c(0, NA)) +
+  labs(x = "ln(Population density)",
+       y = "Percent with a college degree")
+
+ggplotly(gg)
+```
+
+Data from ggplot2::midwest
+
+Source code available [here](https://github.com/awunderground/developing_data_products_week3)
+
+## Fin
